@@ -130,19 +130,58 @@
     eas-res
     sou-res
     grid-position]
-   (->imagegrid
-     grid-position
-     (->
-       filestr
-       java.io.File. 
-       javax.imageio.ImageIO/read)
-     eas-res
-     sou-res)))
+   (let [buffimg (-> filestr
+                     java.io.File.
+                     javax.imageio.ImageIO/read)]
+     (->imagegrid
+       grid-position
+       buffimg
+       eas-res
+       sou-res))))
 #_
 (geogrid4image/read-file
   "/home/kxygk/Projects/geogrid4image/rain-2011-03.tif"
   0.1
   0.1
+  (geoprim/point-eassou
+    0
+    0))
+;; => {:norwes-point {:eas 0.0, :sou 0.0},
+;;     :image
+;;     #object[java.awt.image.BufferedImage 0x4020bc9 "BufferedImage@4020bc9: type = 11 ColorModel: #pixelBits = 16 numComponents = 1 color space = java.awt.color.ICC_ColorSpace@7ae183bd transparency = 1 has alpha = false isAlphaPre = false ShortInterleavedRaster: width = 3600 height = 1800 #numDataElements 1"],
+;;     :eas-res 0.1,
+;;     :sou-res 0.1}
+#_
+(geogrid4image/read-file
+  "/home/kxygk/Data/sst/monthly/geotiff-rot/block-0524-rot.tiff"
+  0.1
+  0.1
+  (geoprim/point-eassou
+    0
+    0))
+;; => {:norwes-point {:eas 0.0, :sou 0.0},
+;;     :image
+;;     #object[java.awt.image.BufferedImage 0x7425462e "BufferedImage@7425462e: type = 11 ColorModel: #pixelBits = 16 numComponents = 1 color space = java.awt.color.ICC_ColorSpace@7ae183bd transparency = 1 has alpha = false isAlphaPre = false ShortInterleavedRaster: width = 1440 height = 720 #numDataElements 1"],
+;;     :eas-res 0.1,
+;;     :sou-res 0.1}
+#_
+(geogrid4image/read-file
+  "/home/kxygk/Data/era5/monthly/rot/era5-geotiff-block-0120-rot.tiff"
+  0.1
+  0.1
+  (geoprim/point-eassou
+    0
+    0))
+;; => {:norwes-point {:eas 0.0, :sou 0.0},
+;;     :image
+;;     #object[java.awt.image.BufferedImage 0x57218434 "BufferedImage@57218434: type = 11 ColorModel: #pixelBits = 16 numComponents = 1 color space = java.awt.color.ICC_ColorSpace@7ae183bd transparency = 1 has alpha = false isAlphaPre = false ShortInterleavedRaster: width = 1440 height = 721 #numDataElements 1"],
+;;     :eas-res 0.1,
+;;     :sou-res 0.1}
+
+(geogrid4image/read-file
+"/home/kxygk/Data/era5/era5-geotiff-block-44.tiff"
+  0.25
+  0.25
   (geoprim/point-eassou
     0
     0))
