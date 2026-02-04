@@ -99,7 +99,7 @@
       #_
       (->> ;; save intermediary image to file (might look all black)
         "subregion.png"
-        java.io.File. 
+        java.io.File.
         (javax.imageio.ImageIO/write
           subregion-image
           "png"))
@@ -110,28 +110,29 @@
         sou-res))))
 
 (defn
-  read-file
-  "Read in an image file into a grid.
+  read-location
+  "Read in an image into a grid.
+  `input` should be a `File` `URL` `InputStream` etc.
+  For our uses it's either:
+  - a `File` made from a file name `io/file`
+  - a `URL` made from a resource `io/resource`
   Default position is for a global map (ie. at `90.-180`)"
-  ([^String
-    filestr
+  ([input
     eas-res
     sou-res]
-   (read-file
-     filestr
+   (read-location
+     input
      eas-res
      sou-res
      (point-eassou
        0
        0))
    )
-  ([^String
-    filestr
+  ([input
     eas-res
     sou-res
     grid-position]
-   (let [buffimg (-> filestr
-                     java.io.File.
+   (let [buffimg (-> input
                      javax.imageio.ImageIO/read)]
      (->imagegrid
        grid-position
