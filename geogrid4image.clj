@@ -30,6 +30,21 @@
     norwes-point)
   (data
     [_]
+    (let [raster (.getData image)
+          w (.getWidth raster)
+          h (.getHeight raster)]
+      (double-array
+        (for [y (range h)
+              x (range w)]
+          ;; a little goofy..
+          ;; but best to run across the pixels
+          (.getSampleDouble raster
+                            x
+                            y
+                            0))))
+    ;; This is more dangerous b/c underlying type might be `short`
+    ;; which leads to negative values
+    #_
     (->>
       image
       .getData
